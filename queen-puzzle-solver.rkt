@@ -42,6 +42,10 @@
 ;;    - the row    is (quotient p 4)
 ;;    - the column is (remainder p 4)
 
+;; P is structure
+;; interp.
+;; the row and column of a position
+
 ;; =================
 ;; Constants:
 
@@ -102,9 +106,9 @@
           (define (solve--lobd lobd)
             (cond [(empty? lobd) false]
                   [else 
-                     (if (not (false? (solve--bd (first lobd)))
-                         (solve--bd (first lobd)
-                         (solve--lobd (rest lobd)))))]))]
+                     (if (not (false? (solve--bd (first lobd))))
+                         (solve--bd (first lobd))
+                         (solve--lobd (rest lobd)))]))]
     (solve--bd bd))) 
 
 ;; Board -> Boolean
@@ -118,45 +122,47 @@
 (define (solved? bd)
   (= 4 (count true? bd)))
 
+(define (true? x) (= x true)) 
+
 ;; Board -> (listof Board)
 ;; produce list of valid next boards from board
 ;; finds first empty square, fills it with Q, keeps only valid boards
-(chek-expect (list E E Q E
+(check-expect (list E E Q E
                    E E E E
                    E E E E
                    E E E E)
-             (list ((list E E Q Q
-                          E E E E
-                          E E E E
-                          E E E E)
-                    (list E E Q E
-                          Q E E E
-                          E E E E
-                          E E E E)
-                    (list E E Q E
-                          E E E E
-                          E E E E
-                          E E E E)
-                    (list E E Q E
-                          E E E E
-                          E Q E E
-                          E E E E)
-                    (list E E Q E
-                          E E E E
-                          E E E Q
-                          E E E E)
-                    (list E E Q E
-                          E E E E
-                          E E E E
-                          E Q E E)
-                    (list E E Q E
-                          E E E E
-                          E E E E
-                          E E E Q))))
+             (list (list E E Q Q
+                         E E E E
+                         E E E E
+                         E E E E)
+                   (list E E Q E
+                         Q E E E
+                         E E E E
+                         E E E E)
+                   (list E E Q E
+                         E E E E
+                         E E E E
+                         E E E E)
+                   (list E E Q E
+                         E E E E
+                         E Q E E
+                         E E E E)
+                   (list E E Q E
+                         E E E E
+                         E E E Q
+                         E E E E)
+                   (list E E Q E
+                         E E E E
+                         E E E E
+                         E Q E E)
+                   (list E E Q E
+                         E E E E
+                         E E E E
+                         E E E Q)))
 ;(define (next-boards bd) empty) ;stub
 
-(define (next-boards bd)
-  (keep-only-valid (fill-with-Q (find-blank bd) bd)))
+;(define (next-boards bd)
+;  (keep-only-valid (fill-with-Q (find-blank bd) bd)))
 
 ;; Board -> Pos
 ;; produces the position of the first blank square
@@ -192,11 +198,21 @@
 (check-expect (keep-only-valid (list Q Q E E
                                      E E E E
                                      E E E E
-                                     E E E E) empty))
+                                     E E E E)) empty)
 ;(define (keep-only-valid lobd) empty) ;stub
 
 (define (keep-only-valid lobd)
-  (filter (valid-board? lobd)))
+ (filter (valid-board? lobd)))
+
+(define-struct p (r c))
+;; P is (make-position Number Number)
+(define (attack? p1 p2)
+  (or (= (p-r p1) (p-r p2))
+      (= (p-c p1) (p-c p2))
+      (= 1 (/ (- (p-r p1) (p-r p2))
+              (- (p-c p1) (p-c p2))))
+      (= (- 1) (/ (- (p-r p1) (p-r p2))
+               (- (p-c p1) (p-c p2))))))
 
 ;; Board -> Boolean
 ;; produce true if no queen attachs another queen; false otherwise
@@ -206,14 +222,8 @@
 (check-expect (valid-board? BD4) false)
 ;(define (valid-board? BD1) true) ;stub
 
-;(define (valid-board? bd)
+(define (valid-board? bd)
   
-
-  
-  
-  If one queen is at row and column (r1, c1) 
-and another queen is at row and column (r2, c2) then the slope of the line between them is: (/ (- r2 r1) (- c2 c1)) 
-If that slope is 1 or -1 then the queens are on the same diagonal.
 
 ;; Board Pos -> Boolean
 ;; Produce value at given position on board.
