@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class reverseAListOfNumbers {
+public class ReverseAListOfNumbers {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the number of integers: ");
