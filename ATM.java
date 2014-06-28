@@ -14,7 +14,7 @@ public class ATM {
 		
 		while (true) {
 			
-			System.out.println("\n\nEnter an id: ");
+			System.out.println("Enter an id: ");
 			int id = input.nextInt();
 			
 			while (true) {
@@ -22,7 +22,10 @@ public class ATM {
 				System.out.print("\n\nMain menu\n1: check balance\n2: withdraw\n3: deposit\n4: exit\nEnter a choice: ");
 				int choice = input.nextInt();
 				
-				if (choice == 4) break;
+				if (choice == 4) {
+					System.out.println("\n\n");
+					break;
+				}
 				
 				process(accounts[id], choice);
 			}
