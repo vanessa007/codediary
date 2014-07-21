@@ -3,10 +3,10 @@ import java.awt.*;
 
 public class FourIconsOnFourLabels extends JFrame {
 	
-	private ImageIcon icon1 = new ImageIcon("image/1.gif");
-	private ImageIcon icon2 = new ImageIcon("/Users/Vanessa/Desktop/2.gif");
-	private ImageIcon icon3 = new ImageIcon("desktop/3.gif");
-	private ImageIcon icon4 = new ImageIcon("desktop/4.gif");
+	private ImageIcon icon1 = new ImageIcon("1.png");
+	private ImageIcon icon2 = new ImageIcon("2.png");
+	private ImageIcon icon3 = new ImageIcon("3.png");
+	private ImageIcon icon4 = new ImageIcon("4.png");
 	
 	public FourIconsOnFourLabels() {
 		setLayout(new GridLayout(2, 2, 10, 10));
