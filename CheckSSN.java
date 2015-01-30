@@ -18,38 +18,15 @@ public class CheckSSN {
 	}
 	
 	public static boolean check(String n) {
-		if (!n.substring(3, 4).equals("-")) {
-			return false;
-		}
-		if (!n.substring(6, 7).equals("-")) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(0))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(1))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(2))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(4))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(5))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(7))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(8))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(9))) {
-			return false;
-		}
-		if (!Character.isDigit(n.charAt(10))) {
-			return false;
+		for(int i=0;i<n.length();i++){
+			if(i==3||i==6){
+				if(n.charAt(i)!='-'){
+					return false;
+				}
+			}else if(!Character.isDigit(n.charAt(i)){
+					return false;
+				}
+			}
 		}
 		return true;
 	}
